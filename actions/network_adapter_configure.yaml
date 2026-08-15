@@ -1,0 +1,26 @@
+ref: hyperv.network_adapter_configure
+label: "Configure VM Network Adapter"
+description: "Configure only modeled MAC assignment and access/untagged VLAN settings"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: hyperv_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+default_execution_permission_set_refs: [standard]
+parameters:
+  credential_key: {type: string, default: hyperv.credentials, required: true}
+  expected_host: {type: string, required: true}
+  vm_id: {type: string, required: true}
+  adapter_name: {type: string, required: true}
+  mac_mode: {type: string, enum: [dynamic, static]}
+  mac_address: {type: string, description: "Required for static mode; 12 hex digits with optional separators"}
+  vlan_id: {type: integer, minimum: 0, maximum: 4094, description: "0 means untagged; otherwise access VLAN"}
+  timeout_seconds: {type: integer, minimum: 5, maximum: 1800, default: 120}
+output:
+  operation: {type: string}
+  target_host: {type: string}
+  data: {type: any}
+  meta: {type: object}
+tags: [hyperv, network, configure]

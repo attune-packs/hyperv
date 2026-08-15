@@ -1,0 +1,38 @@
+ref: hyperv
+label: "Microsoft Hyper-V"
+description: "Curated Hyper-V management through reviewed PowerShell over verified WinRM HTTPS"
+version: "0.1.0"
+author: "Attune; adapted from work by Encore Technologies and StackStorm Exchange contributors"
+email: "support@attune.systems"
+system: false
+enabled: true
+
+conf_schema: {}
+config: {}
+
+meta:
+  category: virtualization
+  documentation_url: "https://learn.microsoft.com/en-us/powershell/module/hyper-v/?view=windowsserver2025-ps"
+  repository_url: "https://github.com/attune-packs/hyperv"
+  source_repository: "https://github.com/StackStorm-Exchange/stackstorm-hyperv"
+  source_revision: "32dfae76bfc9bdf8412bb96701e2d563f9e82023"
+  source_version: "1.0.0"
+  license: "Apache-2.0"
+
+tags: [hyperv, microsoft, windows-server, virtualization, winrm]
+runtime_deps: [python, powershell-remoting]
+dependencies: []
+
+testing:
+  enabled: true
+  discovery:
+    method: directory
+    path: tests
+  runners:
+    python:
+      type: unittest
+      entry_point: tests/test_pack.py
+      timeout: 120
+      result_format: simple
+  min_pass_rate: 1.0
+  on_failure: block

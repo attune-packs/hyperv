@@ -1,0 +1,13 @@
+This product includes a substantially modified adaptation of requirements from
+the StackStorm Exchange Microsoft Hyper-V pack, version 1.0.0, originally
+attributed to Encore Technologies.
+
+Source: https://github.com/StackStorm-Exchange/stackstorm-hyperv
+Verified revision: 32dfae76bfc9bdf8412bb96701e2d563f9e82023
+Revision date: 2021-12-19
+License: Apache License 2.0
+
+The implementation, action selection, schemas, PowerShell, WinRM transport,
+credential handling, and Attune metadata have been replaced. None of the 212
+generated upstream action definitions is copied. The upstream repository did
+not contain a NOTICE file at the verified revision.

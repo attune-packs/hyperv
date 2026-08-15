@@ -1,0 +1,27 @@
+ref: hyperv.vm_migrate
+label: "Live Migrate Virtual Machine"
+description: "Synchronously migrate a stable VM ID with explicit CredSSP delegation and exact source/destination confirmation"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: hyperv_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+default_execution_permission_set_refs: [standard]
+parameters:
+  credential_key: {type: string, default: hyperv.credentials, required: true, description: "Must reference a verified-TLS CredSSP profile with allow_credssp true"}
+  expected_host: {type: string, required: true, description: "Source Hyper-V host"}
+  vm_id: {type: string, required: true}
+  destination_host: {type: string, required: true}
+  include_storage: {type: boolean, default: false}
+  destination_storage_host_path: {type: string, description: "Absolute local path interpreted on the destination host; required when include_storage is true"}
+  allow_credential_delegation: {type: boolean, required: true, description: "Must be true; CredSSP exposes reusable credentials to the source host"}
+  confirmation: {type: string, required: true, description: "MIGRATE_VM:<expected_host>:<vm_id>:<destination_host>"}
+  timeout_seconds: {type: integer, minimum: 5, maximum: 1800, default: 900}
+output:
+  operation: {type: string}
+  target_host: {type: string}
+  data: {type: any}
+  meta: {type: object}
+tags: [hyperv, vm, migration]

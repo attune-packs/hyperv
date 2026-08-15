@@ -1,0 +1,31 @@
+ref: hyperv.vm_configure
+label: "Configure Virtual Machine"
+description: "Configure a VM selected only by stable GUID; at least one modeled setting is required"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: hyperv_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+default_execution_permission_set_refs: [standard]
+parameters:
+  credential_key: {type: string, default: hyperv.credentials, required: true}
+  expected_host: {type: string, required: true}
+  vm_id: {type: string, required: true}
+  name: {type: string}
+  memory_startup_bytes: {type: integer, minimum: 33554432, maximum: 17592186044416}
+  dynamic_memory: {type: boolean}
+  memory_minimum_bytes: {type: integer, minimum: 33554432, maximum: 17592186044416}
+  memory_maximum_bytes: {type: integer, minimum: 33554432, maximum: 17592186044416}
+  processor_count: {type: integer, minimum: 1, maximum: 2048}
+  automatic_start_action: {type: string, enum: [Nothing, StartIfRunning, Start]}
+  automatic_stop_action: {type: string, enum: [TurnOff, Save, ShutDown]}
+  checkpoint_type: {type: string, enum: [Disabled, Standard, Production, ProductionOnly]}
+  timeout_seconds: {type: integer, minimum: 5, maximum: 1800, default: 120}
+output:
+  operation: {type: string}
+  target_host: {type: string}
+  data: {type: any}
+  meta: {type: object}
+tags: [hyperv, vm, configure]

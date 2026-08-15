@@ -1,0 +1,27 @@
+ref: hyperv.vm_import
+label: "Import Virtual Machine"
+description: "Import from a Hyper-V host path by safe copy or confirmed in-place registration; overwrite is unsupported"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: hyperv_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+default_execution_permission_set_refs: [standard]
+parameters:
+  credential_key: {type: string, default: hyperv.credentials, required: true}
+  expected_host: {type: string, required: true}
+  config_host_path: {type: string, required: true, description: "Absolute VM configuration path on the Hyper-V host"}
+  mode: {type: string, enum: [copy, register], default: copy}
+  generate_new_id: {type: boolean, description: "Required explicit choice for copy mode"}
+  vhd_destination_host_path: {type: string, description: "Copy destination on the Hyper-V host"}
+  vm_destination_host_path: {type: string, description: "Configuration copy destination on the Hyper-V host"}
+  confirmation: {type: string, description: "Register only: REGISTER_IMPORT:<expected_host>:<config_host_path>"}
+  timeout_seconds: {type: integer, minimum: 5, maximum: 1800, default: 600}
+output:
+  operation: {type: string}
+  target_host: {type: string}
+  data: {type: any}
+  meta: {type: object}
+tags: [hyperv, vm, import]

@@ -1,0 +1,25 @@
+ref: hyperv.vhd_attach
+label: "Attach Virtual Hard Disk"
+description: "Idempotently attach a host VHD path to a stable VM ID using a SCSI controller"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: hyperv_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+default_execution_permission_set_refs: [standard]
+parameters:
+  credential_key: {type: string, default: hyperv.credentials, required: true}
+  expected_host: {type: string, required: true}
+  vm_id: {type: string, required: true}
+  vhd_host_path: {type: string, required: true}
+  controller_number: {type: integer, minimum: 0, maximum: 3}
+  controller_location: {type: integer, minimum: 0, maximum: 63}
+  timeout_seconds: {type: integer, minimum: 5, maximum: 1800, default: 120}
+output:
+  operation: {type: string}
+  target_host: {type: string}
+  data: {type: any}
+  meta: {type: object}
+tags: [hyperv, vhd, attach]

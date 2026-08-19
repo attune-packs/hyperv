@@ -1,0 +1,9 @@
+<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <title>Pack icon</title>
+  <g transform="translate(-3.000 -3.250) scale(1.2500)">
+
+  <path d="M12 3.4 L20 7.4 L12 11.4 L4 7.4 Z" fill="#00A4EF"/>
+  <path d="M12 11.4 L20 7.4 L20 17 L12 21 Z" fill="#00A4EF"/>
+  <path d="M4 7.4 L12 11.4 L12 21 L4 17 Z" fill="#00A4EF"/>
+  </g>
+</svg>

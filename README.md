@@ -10,7 +10,7 @@ documentation verification.
 
 ## Requirements
 
-- Python 3.10 or newer on the selected Attune worker.
+- Python 3.10 or newer on an Attune worker labeled `profile: kerberos`.
 - `pywinrm` with the declared Kerberos and CredSSP extras from
   [requirements.txt](requirements.txt).
 - A Kerberos client and development/runtime libraries when Kerberos is used

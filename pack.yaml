@@ -1,7 +1,7 @@
 ref: hyperv
 label: "Microsoft Hyper-V"
 description: "Curated Hyper-V management through reviewed PowerShell over verified WinRM HTTPS"
-version: "0.1.0"
+version: "0.1.1"
 author: "Attune; adapted from work by Encore Technologies and StackStorm Exchange contributors"
 email: "support@attune.systems"
 system: false
@@ -22,6 +22,8 @@ meta:
 tags: [hyperv, microsoft, windows-server, virtualization, winrm]
 runtime_deps: [python, powershell-remoting]
 dependencies: []
+worker_selector:
+  profile: kerberos
 
 testing:
   enabled: true

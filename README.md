@@ -19,7 +19,11 @@ documentation verification.
 - Windows Server 2019, 2022, or 2025 with Hyper-V and its PowerShell module.
 - WinRM HTTPS (normally port 5986), a certificate trusted by the worker, and a
   least-privilege account authorized for only the required Hyper-V operations.
-- An encrypted, pack-owned Attune Key such as `hyperv.credentials`.
+- An encrypted, pack-owned Attune Key such as `pack.hyperv.credentials`.
+
+Create that Key with `local_ref: credentials`, `name`, `owner_type: pack`,
+`owner_pack_ref: hyperv`, and one of the profiles below as `value`. Attune
+constructs the canonical `pack.hyperv.credentials` ref used by actions.
 
 The pack does not configure WinRM, listeners, certificates, Hyper-V migration,
 replication, delegation, firewall policy, or account privileges.

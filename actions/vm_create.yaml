@@ -10,7 +10,7 @@ parameter_format: json
 output_format: json
 default_execution_permission_set_refs: [standard]
 parameters:
-  credential_key: {type: string, default: hyperv.credentials, required: true}
+  credential_key: {type: string, default: pack.hyperv.credentials, required: true}
   expected_host: {type: string, required: true, description: "Must equal the profile host and actual Windows host"}
   name: {type: string, required: true}
   generation: {type: integer, enum: [1, 2], default: 2}

@@ -46,7 +46,7 @@ class MetadataTests(unittest.TestCase):
                 for field, value in expected.items():
                     self.assertRegex(text, rf"(?m)^{field}: {re.escape(value)}$")
                 self.assertIn("default_execution_permission_set_refs: [standard]", text)
-                self.assertRegex(text, r"credential_key: \{[^\n]*default: hyperv\.credentials[^\n]*\}")
+                self.assertRegex(text, r"credential_key: \{[^\n]*default: pack\.hyperv\.credentials[^\n]*\}")
                 for field in ("operation", "target_host", "data", "meta"):
                     self.assertRegex(text, rf"(?m)^  {field}: \{{type:")
                 self.assertNotRegex(text, forbidden)
@@ -186,14 +186,16 @@ class CredentialTests(unittest.TestCase):
         fake_attune = types.ModuleType("attune")
         fake_attune.context = types.SimpleNamespace(client=object())
         fake_secrets = types.ModuleType("attune.api_client.api.secrets")
-        fake_secrets.get_key = types.SimpleNamespace(sync_detailed=mock.Mock(side_effect=RuntimeError("TOP-SECRET")))
+        sync_detailed = mock.Mock(side_effect=RuntimeError("TOP-SECRET"))
+        fake_secrets.get_key = types.SimpleNamespace(sync_detailed=sync_detailed)
         modules = {
             "attune": fake_attune, "attune.api_client": types.ModuleType("attune.api_client"),
             "attune.api_client.api": types.ModuleType("attune.api_client.api"),
             "attune.api_client.api.secrets": fake_secrets,
         }
         with mock.patch.dict(sys.modules, modules), self.assertRaises(client.HyperVPackError) as caught:
-            client._fetch_key("hyperv.credentials")
+            client._fetch_key("pack.hyperv.credentials")
+        sync_detailed.assert_called_once_with("pack.hyperv.credentials", client=fake_attune.context.client)
         self.assertNotIn("TOP-SECRET", str(caught.exception))
 
 

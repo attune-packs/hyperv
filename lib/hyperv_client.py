@@ -12,7 +12,7 @@ import time
 from pathlib import Path
 from typing import Any
 
-DEFAULT_CREDENTIAL_KEY = "hyperv.credentials"
+DEFAULT_CREDENTIAL_KEY = "pack.hyperv.credentials"
 MAX_INPUT_BYTES = 64 * 1024
 MAX_OUTPUT_BYTES = 4 * 1024 * 1024
 _GUID = re.compile(r"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
@@ -97,13 +97,13 @@ ENUM_VALUES = {
 def _fetch_key(key_ref: str) -> dict[str, Any]:
     if not isinstance(key_ref, str) or not key_ref.strip():
         raise HyperVPackError("credential_key must be a non-empty string")
-    if not key_ref.startswith("hyperv."):
-        raise HyperVPackError("credential_key must reference the hyperv. Key namespace")
+    if not key_ref.startswith("pack.hyperv."):
+        raise HyperVPackError("credential_key must reference the pack.hyperv. Key namespace")
     try:
         import attune
         from attune.api_client.api.secrets import get_key
 
-        response = get_key.sync_detailed(client=attune.context.client, key_ref=key_ref)
+        response = get_key.sync_detailed(key_ref, client=attune.context.client)
     # SDK exceptions can carry Key contents, so retain only their type.
     except Exception as exc:  # noqa: BLE001
         raise HyperVPackError(f"could not read Hyper-V credential Key ({type(exc).__name__})") from None

@@ -10,7 +10,7 @@ parameter_format: json
 output_format: json
 default_execution_permission_set_refs: [standard]
 parameters:
-  credential_key: {type: string, default: hyperv.credentials, required: true, description: "Must reference a verified-TLS CredSSP profile with allow_credssp true"}
+  credential_key: {type: string, default: pack.hyperv.credentials, required: true, description: "Must reference a verified-TLS CredSSP profile with allow_credssp true"}
   expected_host: {type: string, required: true, description: "Source Hyper-V host"}
   vm_id: {type: string, required: true}
   destination_host: {type: string, required: true}

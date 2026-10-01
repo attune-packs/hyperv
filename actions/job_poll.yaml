@@ -10,7 +10,7 @@ parameter_format: json
 output_format: json
 default_execution_permission_set_refs: [standard]
 parameters:
-  credential_key: {type: string, default: hyperv.credentials, required: true}
+  credential_key: {type: string, default: pack.hyperv.credentials, required: true}
   vm_id: {type: string, required: true}
   job_type: {type: string, required: true, enum: [vm_state, replication_state]}
   desired_state: {type: string, required: true, description: "Modeled state documented in README"}
